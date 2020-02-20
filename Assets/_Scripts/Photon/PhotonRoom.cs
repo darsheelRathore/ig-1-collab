@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using System.IO;
 
@@ -57,8 +58,14 @@ public class PhotonRoom : MonoBehaviourPunCallbacks
         if(currentBuildIndex == roomBuildIndex)
         {
             // Instantiate player
-            PhotonNetwork.Instantiate(Path.Combine("PlayerPrefab", "Player"), 
+            GameObject instantiatedPlayer = PhotonNetwork.Instantiate(Path.Combine("PlayerPrefab", "Player"), 
                 Vector3.zero, Quaternion.identity);
+
+            if(instantiatedPlayer.GetComponent<PhotonView>().IsMine)
+            {
+                //Chnage the color
+                instantiatedPlayer.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
         }
     }
 }
