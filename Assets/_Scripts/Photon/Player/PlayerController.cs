@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GetComponent<PhotonView>().IsMine) { return; }
 
         movementVector = transform.forward * Input.GetAxis("Vertical")
             + transform.right * Input.GetAxis("Horizontal");
